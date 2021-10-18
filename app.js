@@ -5,6 +5,7 @@ const path = require('path');
 const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 const session = require('express-session');
+const { sequelize } = require('./models');
 
 dotenv.config();
 
@@ -15,6 +16,15 @@ nunjucks.configure('views', {
   express: app,
   watch: true,
 });
+
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log('success connect db');
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
