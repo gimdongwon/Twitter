@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="../public/index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="profile_wrap">
+        <div class="profile">
+          {% if user and user.id %}
+          <div class="user-name">{{'안녕하세요! ' + user.nick + '님'}}</div>
+          <div class="half">
+            <div>팔로잉</div>
+            <div class="count folllowing-count">{{folllowingCount}}</div>
+          </div>
+          <div class="half">
+            <div>팔로우</div>
+            <div class="count folllower-count">{{folllowerCount}}</div>
+          </div>
+          <input type="hidden" id="my-id" value="{{user.id}}" />
+          <a href="/profile" id="my-profile" class="btn"> 내 프로필</a>
+          <a href="/logout" id="/auth/logout" class="btn">로그아웃</a>
+          {% else %}
+          <form action="/auth/login" id="llogin-form" method="post">
+            <div class="input-group">
+              <label for="password">비밀번호</label>
+              <input type="password" name="password" id="password" required />
+            </div>
+            <a href="/join" id="join" class="btn">회원가입</a>]
+            <button id="login" type="submit" class="btn">로그인</button>
+            <a href="/auth/kakao" id="kakao" class="btn">카카오톡</a>
+          </form>
+          {% endif %}
+        </div>
+        <footer>
+          Made by&nbsp;
+          <a href="https://dongwon.oopy.io/" target="_blank">Dongwon</a>
+        </footer>
+      </div>
+      {% block content %} {% endblock %}
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    {% block script %} {% endblock%}
+  </body>
+</html>
