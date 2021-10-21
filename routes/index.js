@@ -4,6 +4,11 @@ const { isNotLoggedIn } = require('./middlewares');
 
 const router = express.Router();
 
+router.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
+
 router.get('/join', isNotLoggedIn, (req, res, next) => {
   res.render('join', { title: '회원가입 - Twitter' });
 });
