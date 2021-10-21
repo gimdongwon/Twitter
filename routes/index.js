@@ -6,7 +6,18 @@ const router = express.Router();
 
 router.use((req, res, next) => {
   res.locals.user = req.user;
+  res.locals.followerCount = req.user ? req.user.Followers.length : 0;
+  res.locals.followingCount = req.user ? req.user.Followings.length : 0;
+  res.locals.followerIdList = req.user
+    ? req.user.Followings.map((f) => f.id)
+    : [];
+  res.locals.following = req.user && req.user.Followings.map((f) => f.nick); // 팔로잉 목록
+  res.locals.followering = req.user && req.user.Followers.map((f) => f.nick); // 팔로워 목록
   next();
+});
+
+router.get('/profile', isLoggedIn, (req, res) => {
+  res.render('profile', { title: '내 정보 - NodeBird' });
 });
 
 router.get('/join', isNotLoggedIn, (req, res, next) => {
