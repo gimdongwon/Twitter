@@ -1,5 +1,6 @@
 const passport = require('passport');
 const User = require('../models/user');
+const kakao = require('./kakaoStrategy');
 const local = require('./localStrategy');
 
 module.exports = () => {
@@ -26,4 +27,5 @@ module.exports = () => {
       .catch((err) => done(err));
   });
   local();
+  kakao();
 };
