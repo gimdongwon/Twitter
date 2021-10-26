@@ -46,8 +46,9 @@
       {% if not followerIdList.includes(twit.User.id) and twit.User.id !==
       user.id and user %}
       <button class="twit-follow">팔로우</button>
-      {% elif followerIdList.includes(twit.User.id) %}
-      <button class="twit-infollow">언팔로우</button>
+      {% elif followerIdList.includes(twit.User.id) and twit.User.id !==
+      user.id%}
+      <button class="twit-unfollow">언팔로우</button>
       {% elif twit.User.id === user.id %}
       <button class="twit-delete">X</button>
       {% endif %}
@@ -86,11 +87,11 @@
       tag.addEventListener('click', () => {
         const myId = document.querySelector('#my-id').value;
         if (myId) {
-          const userId = document.querySelector('.twit-user-id').value;
-          if (userId == myId) {
+          const userId = tag.parentNode.querySelector('.twit-user-id').value;
+          if (userId !== myId) {
             if (confirm('팔로잉하시겠습니까?')) {
               axios
-                .post(`/user/${myId}/follow`)
+                .post(`/user/${userId}/follow`)
                 .then(() => {
                   location.reload();
                 })
@@ -106,11 +107,11 @@
       tag.addEventListener('click', () => {
         const myId = document.querySelector('#my-id').value;
         if (myId) {
-          const userId = document.querySelector('.twit-user-id').value;
-          if (userId == myId) {
+          const userId = tag.parentNode.querySelector('.twit-user-id').value;
+          if (userId !== myId) {
             if (confirm('언팔로잉하시겠습니까?')) {
               axios
-                .post(`/user/${myId}/unfollow`)
+                .post(`/user/${userId}/unfollow`)
                 .then(() => {
                   location.reload();
                 })
