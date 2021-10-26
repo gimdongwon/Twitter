@@ -20,4 +20,16 @@ router.patch('/:id/like', async (req, res, next) => {
   }
 });
 
+router.delete('/:id/delete', async (req, res, next) => {
+  try {
+    await Post.destroy({
+      where: { id: parseInt(req.params.id) },
+    });
+    res.send('success delete');
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 module.exports = router;
