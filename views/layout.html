@@ -48,6 +48,34 @@
       {% block content %} {% endblock %}
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      window.onload = () => {
+        if (new URL(location.href).searchParams.get('loginError')) {
+          alert(new URL(location.href).searchParams.get('loginError'));
+        }
+      };
+      if ('{{user}}') {
+        document.querySelector('.user-name').addEventListener('click', () => {
+          if (confirm('이름을 수정하시겠습니까?')) {
+            const editName = prompt('수정하실 이름을 입력하세요.');
+            const userId = '{{user.id}}';
+            if (editName != '') {
+              axios
+                .patch(`user/${userId}/update`, { editName })
+                .then(() => {
+                  alert('수정 완료하였습니다.');
+                  location.reload();
+                })
+                .catch((err) => {
+                  console.error(error);
+                });
+            } else {
+              alert('이름을 입력하지 않았습니다.');
+            }
+          }
+        });
+      }
+    </script>
     {% block script %} {% endblock%}
   </body>
 </html>
