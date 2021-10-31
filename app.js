@@ -34,8 +34,11 @@ sequelize
   .catch((error) => {
     console.error(error);
   });
-
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'production') {
+  app.use(morgan('combined'));
+} else {
+  app.use(morgan('dev'));
+}
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
@@ -53,9 +56,25 @@ app.use(
   })
 );
 
+const sessionOption = {
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  },
+};
+if (process.env.NODE_ENV === 'production') {
+  app.use(morgan('combined'));
+  sessionOption.proxy = true;
+} else {
+  app.use(morgan('dev'));
+}
+
 // 비밀번호 설정 적용
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session(sessionOption));
 
 // router 적용
 app.use('/', indexRouter);
