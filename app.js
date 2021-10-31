@@ -16,6 +16,7 @@ const postRouter = require('./routes/post');
 
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
+const logger = require('./logger');
 
 const app = express();
 passportConfig(); // 비밀번호 설정
@@ -85,6 +86,8 @@ app.use('/post', postRouter);
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;
+  logger.info('hello');
+  logger.error(error.message);
   next(error);
 });
 

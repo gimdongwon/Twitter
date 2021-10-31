@@ -44,3 +44,13 @@ project manager로 node 서버를 관리할 때 사용하는 라이브러리이�
 - npx pm2 reload all : 전체 재시작
 
 scripts에서 맨 뒤에 -i 0은 생성하길 원하는 프로세스 개수를 뜻함. 0은 현재 cpu 코어 갯수만큼 생성이란 뜻
+
+6. winston
+
+실제 서버를 운영할 때 console.log와 console.error를 대체하기 위한 모듈이다. 로그를 파일이나 다른 데이터베이스에 저장하기 위해 사용.
+
+인수 설정으로는 level, format, transports 등이 있다.
+
+- level은 로그의 심각도를 의미ㅣ한다. error, warn, info, verbose, debug, silly가 있다. 심각도 순이므로 위 순서를 참고하여 기록하길 원하는 유형의 로그를 고르면 된다.
+- format은 로그의 형식이다. json, label, timestamp, printf, simple, combine 등의 다양한 형식이 있다. 기본적으로는 JSON 형식으로 기록하지만, 로그 기록 시간을 표시하려면 timestamp가 낫다. combine은 여러 형식을 혼합해서 사용할 때 쓴다.
+- transports는 로그 저장 방식을 의미한다. new transports.File은 파일로 저장한다는 뜻이고, new transports.Console은 콘솔에 출력한다는 뜻이다. 여러 로깅 방식을 동시에 사용할 수도 있다.
