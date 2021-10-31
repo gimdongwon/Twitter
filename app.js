@@ -6,6 +6,8 @@ const session = require('express-session');
 const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 const passport = require('passport');
+const helmet = require('helmet');
+const hpp = require('hpp');
 
 dotenv.config();
 // router
@@ -37,6 +39,8 @@ sequelize
   });
 if (process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'));
+  app.use(helmet({ contentSecurityPolicy: false }));
+  app.use(hpp());
 } else {
   app.use(morgan('dev'));
 }

@@ -54,3 +54,7 @@ scripts에서 맨 뒤에 -i 0은 생성하길 원하는 프로세스 개수를 �
 - level은 로그의 심각도를 의미ㅣ한다. error, warn, info, verbose, debug, silly가 있다. 심각도 순이므로 위 순서를 참고하여 기록하길 원하는 유형의 로그를 고르면 된다.
 - format은 로그의 형식이다. json, label, timestamp, printf, simple, combine 등의 다양한 형식이 있다. 기본적으로는 JSON 형식으로 기록하지만, 로그 기록 시간을 표시하려면 timestamp가 낫다. combine은 여러 형식을 혼합해서 사용할 때 쓴다.
 - transports는 로그 저장 방식을 의미한다. new transports.File은 파일로 저장한다는 뜻이고, new transports.Console은 콘솔에 출력한다는 뜻이다. 여러 로깅 방식을 동시에 사용할 수도 있다.
+
+7. helmet, hpp
+
+서버의 각종 취약점을 보완해주는 패키지로, 익스프레스 미들웨어로서 사용할 수 있다. helmet과 hpp가 방어해주는 취약점 목록은 각각의 공식 문서에 나와 있다. 기본적으로는 배포전에 이 두 패키지를 넣어주는 것이 좋다.
